@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+{#        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />#}
+        <!--<link rel="stylesheet" href="./css/font.css">-->
+        <link rel="stylesheet" href="/static/css/index.css">
+        <link rel="stylesheet" href="/static/css/iconfont.css">
+        <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/static/js/index.js"></script>
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/survey.js"></script>
+        <style>
+            #FontScroll{
+                width: 100%;
+                height: 245px;
+                overflow: hidden;
+            }
+            #FontScroll ul li{
+                height: 32px;
+                width: 100%;
+                color: #ffffff;
+                line-height: 32px;
+                overflow: hidden;
+                font-size: 14px;
+            }
+            #FontScroll ul li i{
+                color: red;
+            }
+            .layui-table td, .layui-table th{
+                min-width: auto !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <blockquote class="layui-elem-quote">欢迎管理员：
+                                <span class="x-red" >admin</span>
+                                <span id="time"></span>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【2020年第38周】蛋鸡基本信息</div>
+                        <div class="layui-card-body ">
+                            <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                                <li class="layui-col-md3 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>产量（单位：吨）</h3>
+                                        <p>
+                                            <cite style="color: #0C0C0C">455,091</cite>
+                                            <cite style="color: #0C0C0C"> &nbsp;&nbsp; |&nbsp;&nbsp;  </cite>
+                                            <font color="green" size="4"><strong>环比：12%</strong></font><br>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md3 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>鸡蛋价格（单位：元/斤）</h3>
+                                        <p>
+                                            <cite style="color: #0C0C0C">3.5</cite>
+                                            <cite style="color: #0C0C0C"> &nbsp;&nbsp; |&nbsp;&nbsp;  </cite>
+                                            <font color="red" size="4"><strong>环比：-2%</strong></font>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md3 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>成本（单位：元/只）</h3>
+                                        <p>
+                                            <cite style="color: #0C0C0C">12</cite>
+                                            <cite style="color: #0C0C0C"> &nbsp;&nbsp; |&nbsp;&nbsp;  </cite>
+                                            <font color="green" size="4"><strong>环比：2%</strong></font>
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md3 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>效益（单位：元/只）</h3>
+                                        <p>
+                                            <cite style="color: #0C0C0C">23.7</cite>
+                                            <cite style="color: #0C0C0C"> &nbsp;&nbsp; |&nbsp;&nbsp;  </cite>
+                                            <font color="green" size="4"><strong>环比：3%</strong></font>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【价量配合图】
+
+                        </div>
+                        <div class="layui-card-body ">
+
+                            <div id="dan_jiegou" style="width: 100%;height: 350px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【大、中、小码蛋占比】
+
+                        </div>
+                        <div class="layui-card-body ">
+
+                            <div id="cunlan_jiegou" style="width: 100%;height: 350px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【商品蛋鸡存栏及鸡蛋产量】
+
+                        </div>
+                        <div class="layui-card-body ">
+
+                            <div id="futures_duo_info" style="width: 100%;height: 350px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【父母代种鸡存栏及鸡苗产量】
+
+                        </div>
+                        <div class="layui-card-body ">
+
+                            <div id="futures_kong_info" style="width: 100%;height: 350px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【现货价格预测】
+
+                        </div>
+                        <div class="layui-card-body  ">
+                            <div id="yuce_egg_price_main" style="width: 100%;height: 350px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【基差】
+
+                        </div>
+                        <div class="layui-card-body ">
+
+                            <div id="qihuo_zhuliheyue" style="width: 100%;height: 350px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="layui-col-sm6 layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">【岩哥说蛋】
+
+                        </div>
+                        <div class="layui-card-body ">
+
+                            <div class="news_style">
+
+                                <div class="myscroll" id="FontScroll">
+                                    <ul class="list">
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">1.景区发一米帽提醒保持距离</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">2.美国首次发现“杀手大黄蜂”...</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">3.相信未来义演开唱</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">4.张文宏评价这届年轻人更加无畏</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">5.王菲常石磊合唱人间</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">6.央视五四特别节目</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">7.特朗普点名吐槽弗吉尼亚州</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">8.这届青年人的新偶像</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">9.错换人生河南生父挂锁为儿祈福</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">10.陈伟霆把猫唱睡着了</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">11.武功山观光直升机低空侧翻</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">12.新闻联播揭蓬佩奥大肆喷毒造谣</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">13.巴西总统带头抗议居家令</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">14.著名化学家张乾二院士逝世</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">15.美国新冠肺炎确诊人数超115万</a></li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <p style="text-align: center;"> Copyright ©2020  All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        </div>
+    </body>
+
+    <script src="/static/js/echarts.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.myscroll').myScroll({
+                speed: 60, //数值越大，速度越慢
+                rowHeight: 38 //li的高度
+            });
+
+        });
+
+        function getTime(){
+            var myDate = new Date();
+            var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+            var myMonth = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
+            var myToday = myDate.getDate(); //获取当前日(1-31)
+            var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+            var myHour = myDate.getHours(); //获取当前小时数(0-23)
+            var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+            var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+            var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+            var nowTime;
+
+            nowTime = myYear+'-'+fillZero(myMonth)+'-'+fillZero(myToday)+'&nbsp;&nbsp;'+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond)+'&nbsp;&nbsp;'+week[myDay]+'&nbsp;&nbsp;';
+            //console.log(nowTime);
+            $('#time').html(nowTime);
+        };
+        function fillZero(str){
+            var realNum;
+            if(str<10){
+                realNum	= '0'+str;
+            }else{
+                realNum	= str;
+            }
+            return realNum;
+        }
+        setInterval(getTime,1000);
+    </script>
+    <script src="/static/js/fontscroll.js"></script>
+    <script type="text/javascript">
+        var dom = document.getElementById("futures_duo_info");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data: ['持买单量', '增减']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{ duo_company_list | safe }},
+                    axisLabel: {
+                       interval: 0,
+                       formatter:function(value)
+                       {
+                           return value.split("").join("\n");
+                       }
+                   }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '持买单量',
+                    type: 'bar',
+                    stack: '总量',
+                    data: {{ duo_chicang_value_list | safe }},
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true, //开启显示
+                                position: 'insideRight', //在上方显示
+                                textStyle: { //数值样式
+                                    color: 'black',
+                                    fontSize: 16
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    name: '增减',
+                    type: 'bar',
+                    stack: '总量',
+                    data: {{ duo_fluctuate_list | safe }},
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true, //开启显示
+                                position: 'top', //在上方显示
+                                textStyle: { //数值样式
+                                    color: 'black',
+                                    fontSize: 16
+                                }
+                            }
+                        },
+                    },
+                }
+            ]
+        };
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+<script type="text/javascript">
+    var dom = document.getElementById("futures_kong_info");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data: ['持卖单量', '增减']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: {{ kong_company_list | safe }},
+                axisLabel: {
+                   interval: 0,
+                   formatter:function(value)
+                   {
+                       return value.split("").join("\n");
+                   }
+               },
+
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '持卖单量',
+                type: 'bar',
+                stack: '总量',
+                data: {{ kong_chicang_value_list | safe }},
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true, //开启显示
+                            position: 'insideRight', //在上方显示
+                            textStyle: { //数值样式
+                                color: 'black',
+                                fontSize: 16
+                            }
+                        },
+                    color:'lightgreen'
+                    }
+                },
+            },
+            {
+                name: '增减',
+                type: 'bar',
+                stack: '总量',
+                data: {{ kong_fluctuate_list | safe }},
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true, //开启显示
+                            position: 'top', //在上方显示
+                            textStyle: { //数值样式
+                                color: 'black',
+                                fontSize: 16
+                            }
+                        }
+                    }
+                },
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+<script type="text/javascript">
+    var dom = document.getElementById("yuce_egg_price_main");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var date_list = {{ date_list | safe }};
+    var exist_date_list = {{ exist_date_list | safe }};
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            formatter: function (params, ticket, callback) {
+              var htmlStr = '';
+              var valMap = {};
+              for(var i=0;i<params.length;i++){
+                var param = params[i];
+                var xName = param.name;//x轴的名称
+                var seriesName = param.seriesName;//图例名称
+                var value = param.value;//y轴值
+                var color = param.color;//图例颜色
+
+                //过滤无效值
+                if(value == '-'){
+                    continue;
+                }
+
+                //过滤重叠值
+                if(valMap[seriesName] == value){
+                    continue;
+                }
+
+                if(i===0){
+                  htmlStr += xName + '<br/>';//x轴的名称
+                }
+                htmlStr +='<div>';
+                //为了保证和原来的效果一样，这里自己实现了一个点的效果
+                htmlStr += '<span style="margin-right:5px;display:inline-block;width:10px;height:10px;border-radius:5px;background-color:'+color+';"></span>';
+
+                //圆点后面显示的文本
+                htmlStr += seriesName + '：' + value;
+                //htmlStr += xName + ':' +xName;
+
+                htmlStr += '</div>';
+                valMap[seriesName] = value;
+                valMap[xName] = xName;
+              }
+              return htmlStr;
+             }
+        },
+
+        title: {
+            text: '鸡蛋周度价格预测价格',
+            subtext: '数据来源:博亚和讯',
+            left: 'center',
+            align: 'right'
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: date_list,
+        },
+        yAxis: {
+            type: 'value'
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : true,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
+            }
+        },
+        dataZoom: [{
+            type: 'inside',
+            start: 80,
+            end: 100
+            }, {
+                start: 0,
+                end: 10,
+                handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                handleSize: '80%',
+                handleStyle: {
+                    color: '#fff',
+                    shadowBlur: 3,
+                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2
+                }
+            }],
+        series: [
+            {
+                name:'鸡蛋周度价格预测价格',
+                data: {{ exist_data_list | safe }},
+                type: 'line',
+                smooth: true,
+            },
+            {
+                name:'鸡蛋周度价格预测价格',
+                data: {{ yuce_price_list | safe }},
+                type: 'line',
+                smooth: true,
+                itemStyle:{
+                   normal:{
+                       lineStyle:{
+                           width:5,
+                           type:'dotted',//'dotted'虚线 'solid'实线
+                           color:'blue'
+                       }
+                   }
+                },
+            },
+            {
+                name:['鸡蛋产量-总重量'],
+                data: {{ data_list | safe }},
+                type: 'bar',
+                smooth: true,
+                itemStyle: {
+                        color: function(params){
+                            var c ='';
+                            if(exist_date_list.indexOf(params.name) > -1){
+                                c='#c23531'
+                            }else{
+                                c='#4f6cc2'
+                            }
+                            return c;
+                        }
+                    },
+                markPoint: {
+                    data: [
+                        {
+                            type: 'max',
+                            name: '最大值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        },
+                        {
+                            type: 'min',
+                            name: '最小值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均值',
+                            color: "green",
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                }
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+{#<script type="text/javascript">#}
+{#    var dom = document.getElementById("main_jicha");#}
+{#    var myChart = echarts.init(dom);#}
+{#    var app = {};#}
+{#    option = null;#}
+{##}
+{#    var jicha_date_list = {{ jicha_date_list | safe }};#}
+{#    var jicha_list = {{ jicha_list | safe }};#}
+{#    var colors = ['#5793f3', '#d14a61', '#675bba'];#}
+{#    var option = {#}
+{#        tooltip: {#}
+{#            trigger: 'axis'#}
+{#        },#}
+{#        grid: {#}
+{#            left: '3%',#}
+{#            right: '6%',#}
+{#            bottom: '3%',#}
+{#            containLabel: true#}
+{#        },#}
+{#        toolbox : {#}
+{#            show : true,#}
+{#            feature : {#}
+{#                mark : {#}
+{#                    show : true#}
+{#                },#}
+{#                dataView : {#}
+{#                    show : false,#}
+{#                    readOnly : false#}
+{#                },#}
+{#                magicType : {#}
+{#                    show : true,#}
+{#                    type : ['line', 'bar']#}
+{#                },#}
+{#                restore : {#}
+{#                    show : true#}
+{#                },#}
+{#                saveAsImage : {#}
+{#                    show : true#}
+{#                }#}
+{#            }#}
+{#        },#}
+{#        xAxis: {#}
+{#            type: 'category',#}
+{#            boundaryGap: false,#}
+{#            data: jicha_date_list#}
+{#        },#}
+{#        yAxis: {#}
+{#            type: 'value',#}
+{#            name: '基差',#}
+{#            min: -2000,#}
+{#            max: 2000,#}
+{#            position: 'left',#}
+{#            axisLine: {#}
+{#                lineStyle: {#}
+{#                    color: colors[2]#}
+{#                }#}
+{#            },#}
+{#            axisLabel: {#}
+{#                formatter: '{value} 元/斤'#}
+{#            }#}
+{#        },#}
+{#        dataZoom: [{#}
+{#                type: 'inside',#}
+{#                start: 90,#}
+{#                end: 100#}
+{#                }, {#}
+{#                    start: 0,#}
+{#                    end: 100,#}
+{#                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',#}
+{#                    handleSize: '80%',#}
+{#                    handleStyle: {#}
+{#                        color: '#fff',#}
+{#                        shadowBlur: 5,#}
+{#                        shadowColor: 'rgba(0, 0, 0, 0.6)',#}
+{#                        shadowOffsetX: 2,#}
+{#                        shadowOffsetY: 2#}
+{#                    }#}
+{#                }],#}
+{#        series: [#}
+{#            {#}
+{#                name: '基差',#}
+{#                type: 'line',#}
+{#                smooth: true,#}
+{#                symbol: 'none',#}
+{#                sampling: 'average',#}
+{#                itemStyle: {#}
+{#                    color: 'rgb(255, 70, 131)'#}
+{#                },#}
+{#                data:jicha_list#}
+{#            }#}
+{##}
+{#        ]#}
+{#    };#}
+{##}
+{#    if (option && typeof option === "object") {#}
+{#        myChart.setOption(option, true);#}
+{#    }#}
+{#</script>#}
+
+
+<script type="text/javascript">
+    var dom = document.getElementById("dan_jiegou");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+    option = {
+        title: {
+            text: '小、中、大码蛋占比',
+            subtext: '纯属虚构',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['小码蛋', '中码蛋', '大码蛋']
+        },
+        series: [
+            {
+                name: '存栏结构',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '小码蛋'},
+                    {value: 310, name: '中码蛋'},
+                    {value: 234, name: '大码蛋'},
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+
+
+<script type="text/javascript">
+    var dom = document.getElementById("cunlan_jiegou");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+    option = {
+        title: {
+            text: '蛋鸡存栏结构',
+            subtext: '纯属虚构',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['0-120日龄', '120-180日龄', '180-270日龄','270-450日龄','450日龄以上']
+        },
+        series: [
+            {
+                name: '存栏结构',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '0-120日龄'},
+                    {value: 310, name: '120-180日龄'},
+                    {value: 234, name: '180-270日龄'},
+                    {value: 234, name: '270-450日龄'},
+                    {value: 234, name: '450日龄以上'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+
+<script type="text/javascript">
+    var dom = document.getElementById("qihuo_zhuliheyue");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var xianhuo_price_list = {{ xianhuo_price_list |safe }};
+    var qihuo_price_list = {{ futures_price_list |safe }};
+    var jicha_date_list = {{ jicha_date_list | safe }};
+    var jicha_list = {{ jicha_list | safe }};
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['期货','现货','基差']
+        },
+        grid: {
+            left: '0%',
+            right: '6%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox : {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : false,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
+            }
+        },
+        xAxis: [
+            {
+            type: 'category',
+            axisTick: {
+                alignWithLabel: true
+            },
+            data: jicha_date_list
+        }
+        ],
+        yAxis: [
+            {
+                name:'期货',
+                type: 'value',
+                min: 1500,
+                max: 6000,
+                position: 'left',
+                axisLine: {
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} 元/斤'
+                }
+            }, {
+                name:'现货',
+                type: 'value',
+                min: 1500,
+                max: 6000,
+                position: 'left',
+                axisLine: {
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} 元/斤'
+                }
+            },
+            {
+                type: 'value',
+                name: '基差',
+                min: -2000,
+                max: 2000,
+                position: 'right',
+                axisLine: {
+                    lineStyle: {
+                        color: colors[2]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} 元/斤'
+                }
+            }],
+        dataZoom: [{
+                type: 'inside',
+                start: 90,
+                end: 100
+                }, {
+                    start: 0,
+                    end: 100,
+                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                    handleSize: '80%',
+                    handleStyle: {
+                        color: '#fff',
+                        shadowBlur: 5,
+                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2
+                    }
+                }],
+        series: [
+            {
+                name: '期货',
+                type: 'line',
+                data: qihuo_price_list,
+                smooth: true,
+                markLine: {
+                    data: [
+                        {type: 'average', name: '期货主力合约平均值'}
+                    ]
+                }
+            },{
+                name: '现货',
+                type: 'line',
+                data:xianhuo_price_list,
+                smooth: true,
+            },{
+                name: '基差',
+                type: 'line',
+                data:jicha_list,
+                smooth: true,
+                symbol: 'none',
+                sampling: 'average',
+                yAxisIndex : 2,
+                areaStyle: {},
+            }
+
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+</html>

@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>便签管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+{#    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />#}
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/static/lib/layui/formSelects-v4.css"/>
+{#    <script src="/static/lib/layui/formSelects-v4.js" charset="utf-8"></script>#}
+    <script type="text/javascript" src="/static/js/index.js"></script>
+    <script src="/static/js/echarts.min.js" charset="utf-8"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        //全局定义一次, 加载formSelects
+        layui.config({
+            base: '/static/lib/layui/' //此处路径请自行处理, 可以使用绝对路径
+        }).extend({
+            formSelects: 'formSelects-v4'
+        });
+        //加载模块
+        layui.use(['jquery', 'formSelects'], function () {
+            var formSelects = layui.formSelects;
+        });
+    </script>
+</head>
+
+
+<body  class="iframe-h">
+
+<div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">便签管理</a>
+            <a>
+              <cite>便签列表</cite></a>
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+
+<div class="wrap-container email-wrap clearfix">
+    <div class="layui-row">
+        <div class="email-edge col-lg-2 layui-btn-container">
+            <dl class="email-folder">
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" lay-submit id="write-email-btn1" value="1">鸡蛋出场价</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" lay-submit id="write-email-btn2" value="2">淘汰鸡出场价</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="3">父母代雏鸡价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="4">蛋雏鸡价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="5">育成鸡价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="daily_doupo_price" type="button" value="6">豆粕价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="daily_yumi_price" type="button" value="7">玉米价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="weekly_vitamin_price" type="button" value="8">维生素价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="9">氨基酸价格</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="futures_price" type="button" value="10">期货主力合约收盘价（基差）</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="11">蛋粮比</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="12">鸡蛋批零差价</button>
+            </dl>
+        </div>
+        <div class="col-lg-10">
+            <div class="layui-fluid">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <form class="layui-form layui-col12-space15">
+                                    <div class="layui-inline layui-show-xs-block" style="width: 95%">
+                                        <select name="select_province_name" xm-select="select_province_name"  xm-select-max="7" id="select_province_name" xm-select-skin="normal">
+                                            <option value="">请选择省份</option>
+                                            <option value="0">全国</option>
+                                            <option value="1">北京</option>
+                                            <option value="2">天津</option>
+                                            <option value="3">河北</option>
+                                            <option value="4">山西</option>
+                                            <option value="5">内蒙</option>
+                                            <option value="6">辽宁</option>
+                                            <option value="7">吉林</option>
+                                            <option value="8">黑龙江</option>
+                                            <option value="9">上海</option>
+                                            <option value="10">江苏</option>
+                                            <option value="11">浙江</option>
+                                            <option value="12">安徽</option>
+                                            <option value="13">福建</option>
+                                            <option value="14">江西</option>
+                                            <option value="15">山东</option>
+                                            <option value="16">河南</option>
+                                            <option value="17">湖北</option>
+                                            <option value="18">湖南</option>
+                                            <option value="19">广东</option>
+                                            <option value="20">广西</option>
+                                            <option value="21">海南</option>
+                                            <option value="22">重庆</option>
+                                            <option value="23">四川</option>
+                                            <option value="24">贵州</option>
+                                            <option value="25">云南</option>
+                                            <option value="26">西藏</option>
+                                            <option value="27">陕西</option>
+                                            <option value="28">甘肃</option>
+                                        </select>
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <button id="compare_price" lay-verify="required" class="layui-btn"  lay-submit><i class="layui-icon">&#xe615;</i></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="layui-card-body layui-table-body" id ='egg_daily_price' style="height: 450px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-fluid">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+{#                            <div class="layui-card-body ">#}
+{#                                <form class="layui-form layui-col-space5">#}
+{##}
+{#                                    <div class="layui-inline layui-show-xs-block">#}
+{#                                        <select xm-select="cityname" xm-select-max="3">#}
+{#                                            <option value=""></option>#}
+{#                                            <option value="1">全国</option>#}
+{#                                            <option value="2">上海</option>#}
+{#                                            <option value="3">天津</option>#}
+{#                                            <option value="4">重庆</option>#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                    <div class="layui-inline layui-show-xs-block">#}
+{#                                        <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>#}
+{#                                    </div>#}
+{#                                </form>#}
+{#                            </div>#}
+                                <div class="layui-card-body layui-table-body" id ='map_egg_daily_price' style="height: 450px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    layui.use(['form', 'laypage', 'jquery','layer','laydate'], function() {
+        var form = layui.form,
+            layer = layui.layer,
+            laypage = layui.laypage,
+            $ = layui.jquery;
+            var laydate = layui.laydate;
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+
+        //获取当前iframe的name值
+        var iframeObj = $(window.frameElement).attr('name');
+
+        $('#write-email-btn').on('click',function(){
+            parent.page("写邮件", 'email-write.html', iframeObj, w = "700px", h = "600px");
+        })
+        //列表
+        $('.email-folder').on('click','a',function(){
+            var url=$(this).attr('data-url');
+            $('#iframeEmail').attr('src',url);
+
+        })
+        $('.email-tool-btn .f-l').on('mouseenter','button',function(){
+            var title=$(this).attr('data-title');
+            var id='#'+$(this).attr('id');
+            layer.tips(title, id, {
+                tips: [1, '#444c63'],
+                time: 1000
+            });
+        })
+        //分页
+        /*laypage({
+            cont: 'email-page'
+            ,pages: 10
+            ,skin: '#1E9FFF'
+        });*/
+        form.on('checkbox(emailAllChoose)', function(data) {
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+        form.render();
+        //非手机端，设置高度
+        if(window.innerWidth>=768){
+            $('.email-content').css('height',window.innerHeight-30);
+        }
+        $(window).resize(function(){
+            $('.email-content').css('height',window.innerHeight-30);
+        })
+    });
+</script>
+
+{#<script type="text/javascript">#}
+{#    //全局定义一次, 加载formSelects#}
+{#    layui.config({#}
+{#        base: '/static/lib/layui/' //此处路径请自行处理, 可以使用绝对路径#}
+{#    }).extend({#}
+{#        formSelects: 'formSelects-v4'#}
+{#    });#}
+{#    //加载模块#}
+{#    layui.use(['jquery', 'formSelects-v4'], function () {#}
+{#        var formSelects = layui.formSelects;#}
+{#        alert('#####')#}
+{#    });#}
+{#</script>#}
+
+<script>
+    layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        var  form = layui.form;
+
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+    });
+
+    /*用户-添加*/
+    function member_add(title,url,id,w,h){
+
+        xadmin.open(title,url,id,w,h);
+    }
+
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',{icon:3,title:'提示信息'},function(index){
+
+            if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+
+        });
+    }
+
+    /*用户-删除*/
+    function link_del(obj,id){
+        layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+
+
+
+    function delAll (argument) {
+        var ids = [];
+
+        // 获取选中的id
+        $('tbody input').each(function(index, el) {
+            if($(this).prop('checked')){
+                ids.push($(this).val())
+            }
+        });
+
+        layer.confirm('确认要删除吗？'+ids.toString(),{icon:3,title:'提示信息'},function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+</script>
+
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('egg_daily_price'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['全国鸡蛋出场均价']
+        },
+        grid: {
+            left: '3%',
+            right: '6%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : true,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: {{ egg_date_list | safe }}
+        },
+        yAxis: {
+            type: 'value',
+            name:'单位：元/斤'
+        },
+        dataZoom: [{
+                    type: 'inside',
+                    start: 90,
+                    end: 100
+                    }, {
+                        start: 0,
+                        end: 10,
+                        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                        handleSize: '80%',
+                        handleStyle: {
+                            color: '#fff',
+                            shadowBlur: 3,
+                            shadowColor: 'rgba(0, 0, 0, 0.6)',
+                            shadowOffsetX: 2,
+                            shadowOffsetY: 2
+                        }
+                    }],
+        series: [
+            {
+                name: '全国鸡蛋出场均价',
+                type: 'line',
+                stack: '总量',
+                data:{{ egg_quanguo_avg_daily_price | safe }},
+                markPoint: {
+                    data: [
+                        {
+                            type: 'max',
+                            name: '最大值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        },
+                        {
+                            type: 'min',
+                            name: '最小值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                },
+                smooth: true,
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均值',
+                            color: "green",
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                }
+            }
+
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('map_egg_daily_price'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['全国鸡蛋出场均价']
+        },
+        grid: {
+            left: '3%',
+            right: '6%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : true,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: {{ egg_date_list | safe }}
+        },
+        yAxis: {
+            type: 'value',
+            name:'单位：元/斤'
+        },
+        dataZoom: [{
+                    type: 'inside',
+                    start: 90,
+                    end: 100
+                    }, {
+                        start: 0,
+                        end: 10,
+                        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                        handleSize: '80%',
+                        handleStyle: {
+                            color: '#fff',
+                            shadowBlur: 3,
+                            shadowColor: 'rgba(0, 0, 0, 0.6)',
+                            shadowOffsetX: 2,
+                            shadowOffsetY: 2
+                        }
+                    }],
+        series: [
+            {
+                name: '全国鸡蛋出场均价',
+                type: 'line',
+                stack: '总量',
+                data:{{ egg_quanguo_avg_daily_price | safe }},
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                smooth: true,
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+    <!-- ajax 选择省份-->
+<script type="text/javascript">
+    try {
+        $("#compare_price").click(function () {
+            layui.config({
+                base: '/static/lib/layui/' //此处路径请自行处理, 可以使用绝对路径
+            }).extend({
+                formSelects: 'formSelects-v4'
+            });
+
+            layui.use(['jquery', 'formSelects'], function (){
+                var formSelects = layui.formSelects;
+                province_id_list = JSON.stringify(formSelects.value('select_province_name', 'valStr'));
+                console.log('province_id_list',province_id_list,typeof(province_id_list));
+
+                $.ajax({
+                    type: "GET", //请求方式
+                    async: false,
+                    url: "/ajaxDailyPrice", //请求的接口地址
+                    data: {
+                        province_list: province_id_list, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                    },
+                    dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                    jsonp:'callback',
+                    success: function (data) { //data为自定义变量，也可以写成success
+                        var myChart = echarts.init(document.getElementById('egg_daily_price'));
+                        // 指定图表的配置项和数据
+                        var option = {
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: data.province_name_list
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '6%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            toolbox: {
+                                show : true,
+                                feature : {
+                                    mark : {
+                                        show : true
+                                    },
+                                    dataView : {
+                                        show : true,
+                                        readOnly : false
+                                    },
+                                    magicType : {
+                                        show : true,
+                                        type : ['line', 'bar']
+                                    },
+                                    restore : {
+                                        show : true
+                                    },
+                                    saveAsImage : {
+                                        show : true
+                                    }
+                                }
+                            },
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: data.egg_province_date_list
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name:'单位：元/斤'
+                            },
+                            dataZoom: [{
+                                type: 'inside',
+                                start: 90,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 3,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                            series:data.egg_province_daily_price
+                            {#series: [#}
+                            {#    {#}
+                            {#        name: data.province_name+'鸡蛋日度均价',#}
+                            {#        type: 'line',#}
+                            {#        stack: '总量',#}
+                            {#        data: data.egg_province_daily_price,#}
+                            {#        markPoint: {#}
+                            {#            data: [#}
+                            {#                {#}
+                            {#                    type: 'max',#}
+                            {#                    name: '最大值',#}
+                            {#                    itemStyle: {#}
+                            {#                        color: "#0090ff",#}
+                            {#                    },#}
+                            {#                },#}
+                            {#                {#}
+                            {#                    type: 'min',#}
+                            {#                    name: '最小值',#}
+                            {#                    itemStyle: {#}
+                            {#                        color: "#0090ff",#}
+                            {#                    },#}
+                            {#                }#}
+                            {#            ]#}
+                            {#        },#}
+                            {#        smooth: true,#}
+                            {#        markLine: {#}
+                            {#            data: [#}
+                            {#                {#}
+                            {#                    type: 'average',#}
+                            {#                    name: '平均值',#}
+                            {#                    color: "green",#}
+                            {#                    itemStyle: {#}
+                            {#                        color: "#0090ff",#}
+                            {#                    },#}
+                            {#                }#}
+                            {#            ]#}
+                            {#        }#}
+                            {#    }#}
+                            {##}
+                            {#]#}
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option,true);
+                        alert('success!!!')
+                    },
+                    error: function () {
+                        alert("fail!!!");
+                    }
+
+                });
+            });
+        });
+            
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+
+<script type="text/javascript">
+    try {
+        $("#write-email-btn1").click(function () { //定义sub事件
+
+            var pig_type_id = $("#write-email-btn1").val(); //定义变量
+            $.ajax({
+                type: "GET", //请求方式
+                async: false,
+                url: {% url "ajaxSelectTypeDailyPrice" %}, //请求的接口地址
+                data: {
+                    pig_type_id: pig_type_id, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                },
+                dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                jsonp:'callback',
+                success: function (success) { //data为自定义变量，也可以写成success
+
+                    var dom = document.getElementById("egg_daily_price");
+                    var myChart_ajax = echarts.init(dom);
+                    var app = {};
+                    option = null;
+
+                    option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['全国鸡蛋出场均价']
+                        },
+                        title: {
+                            text: '全国鸡蛋出场均价',
+                            subtext: '数据来源:博亚和讯',
+                            left: 'center',
+                            align: 'right'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: success.egg_date_list
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        dataZoom: [{
+                                type: 'inside',
+                                start: 90,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 3,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                        series: [
+                            {
+                                data: success.egg_quanguo_avg_daily_price,
+                                type: 'line',
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+
+                    if (option && typeof option === "object") {
+                        myChart_ajax.setOption(option, true);
+                    }
+                },
+                error: function () {
+                    alert("fail!!!");
+                }
+            });
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+
+<script type="text/javascript">
+    try {
+        $("#write-email-btn2").click(function () { //定义sub事件
+
+            var pig_type_id = $("#write-email-btn2").val(); //定义变量
+            $.ajax({
+                type: "GET", //请求方式
+                async: false,
+                url: {% url "ajaxSelectTypeDailyPrice" %}, //请求的接口地址
+                data: {
+                    pig_type_id: pig_type_id, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                },
+                dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                jsonp:'callback',
+                success: function (success) { //data为自定义变量，也可以写成success
+
+                    var dom = document.getElementById("egg_daily_price");
+                    var myChart_ajax = echarts.init(dom);
+                    var app = {};
+                    option = null;
+
+                    option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['全国淘汰鸡均价']
+                        },
+                        title: {
+                            text: '全国淘汰鸡均价',
+                            subtext: '数据来源:博亚和讯',
+                            left: 'center',
+                            align: 'right'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: success.egg_date_list
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        dataZoom: [{
+                                type: 'inside',
+                                start: 90,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 3,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                        series: [
+                            {
+                                data: success.egg_quanguo_avg_daily_price,
+                                type: 'line',
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+
+                    if (option && typeof option === "object") {
+                        myChart_ajax.setOption(option, true);
+                    }
+                },
+                error: function () {
+                    alert("fail!!!");
+                }
+            });
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+
+<script type="text/javascript">
+    try {
+        $("#weekly_vitamin_price").click(function () { //定义sub事件
+
+            var pig_type_id = $("#weekly_vitamin_price").val(); //定义变量
+            $.ajax({
+                type: "GET", //请求方式
+                async: false,
+                url: {% url "ajaxWkVitaminPrice" %}, //请求的接口地址
+                data: {
+                    vitamin_type_id: 1, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                },
+                dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                jsonp:'callback',
+                success: function (success) { //data为自定义变量，也可以写成success
+
+                    var dom = document.getElementById("egg_daily_price");
+                    var myChart_ajax = echarts.init(dom);
+                    var app = {};
+                    option = null;
+
+                    option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['维生素A（50 万 IU）周度价格']
+                        },
+                        title: {
+                            text: '维生素A（50 万 IU）周度价格',
+                            subtext: '数据来源:博亚和讯',
+                            left: 'center',
+                            align: 'right'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: success.week_list
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        dataZoom: [{
+                                type: 'inside',
+                                start: 90,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 3,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                        series: [
+                            {
+                                data: success.data_list,
+                                type: 'line',
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+
+                    if (option && typeof option === "object") {
+                        myChart_ajax.setOption(option, true);
+                    }
+                },
+                error: function () {
+                    alert("fail!!!");
+                }
+            });
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+
+<script type="text/javascript">
+    try {
+        $("#daily_doupo_price").click(function () { //定义sub事件
+
+            var doupolevel_id = $("#daily_doupo_price").val(); //定义变量
+            $.ajax({
+                type: "GET", //请求方式
+                async: false,
+                url: {% url "ajaxDailyPriceDoupo" %}, //请求的接口地址
+                data: {
+                    doupolevel_id: 1, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                },
+                dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                jsonp:'callback',
+                success: function (success) { //data为自定义变量，也可以写成success
+
+                    var myChart_ajax = echarts.init(document.getElementById("egg_daily_price"));
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['普通豆粕','高等豆粕']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '6%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        toolbox : {
+                            show : true,
+                            feature : {
+                                mark : {
+                                    show : true
+                                },
+                                dataView : {
+                                    show : false,
+                                    readOnly : false
+                                },
+                                magicType : {
+                                    show : true,
+                                    type : ['line', 'bar']
+                                },
+                                restore : {
+                                    show : true
+                                },
+                                saveAsImage : {
+                                    show : true
+                                }
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: success.date_list
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name:'单位:元/吨'
+                        },
+                        dataZoom: [{
+                                type: 'inside',
+                                start: 0,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 5,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                        series: [
+                            {
+                                name: '普通豆粕',
+                                type: 'line',
+                                {#stack: '总量',#}
+                                data:success.pt_doupo_data_list,
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '普通豆粕平均值'}
+                                    ]
+                                }
+                            },{
+                                name: '高等豆粕',
+                                type: 'line',
+                                {#stack: '总量',#}
+                                data:success.gd_doupo_data_list,
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '高等豆粕平均值'}
+                                    ]
+                                }
+                            }
+
+                        ]
+                    };
+
+                    if (option && typeof option === "object") {
+                        myChart_ajax.setOption(option, true);
+                    }
+                },
+                error: function () {
+                    alert("fail!!!");
+                }
+            });
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+
+
+<script type="text/javascript">
+    try {
+        $("#futures_price").click(function () { //定义sub事件
+
+            var futures_id = $("#futures_price").val(); //定义变量
+            $.ajax({
+                type: "GET", //请求方式
+                async: false,
+                url: {% url "ajaxFuturesPrice" %}, //请求的接口地址
+                data: {
+                    futures_id: 1, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                },
+                dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                jsonp:'callback',
+                success: function (success) { //data为自定义变量，也可以写成success
+
+                    var myChart_ajax = echarts.init(document.getElementById("egg_daily_price"));
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['期货','现货']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '6%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        toolbox : {
+                            show : true,
+                            feature : {
+                                mark : {
+                                    show : true
+                                },
+                                dataView : {
+                                    show : false,
+                                    readOnly : false
+                                },
+                                magicType : {
+                                    show : true,
+                                    type : ['line', 'bar']
+                                },
+                                restore : {
+                                    show : true
+                                },
+                                saveAsImage : {
+                                    show : true
+                                }
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: success.date_list
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name:'单位:元/斤'
+                        },
+                        dataZoom: [{
+                                type: 'inside',
+                                start: 90,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 5,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                        series: [
+                            {
+                                name: '期货',
+                                type: 'line',
+                                {#stack: '总量',#}
+                                data:success.futures_price_list,
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '期货主力合约平均值'}
+                                    ]
+                                }
+                            },{
+                                name: '现货',
+                                type: 'line',
+                                {#stack: '总量',#}
+                                data:success.xianhuo_price_list,
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '现货平均值'}
+                                    ]
+                                }
+                            }
+
+                        ]
+                    };
+
+                    if (option && typeof option === "object") {
+                        myChart_ajax.setOption(option, true);
+                    }
+                },
+                error: function () {
+                    alert("fail!!!");
+                }
+            });
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+
+
+<script type="text/javascript">
+    try {
+        $("#daily_yumi_price").click(function () { //定义sub事件
+
+            var yumi_type_id = $("#daily_yumi_price").val(); //定义变量
+            $.ajax({
+                type: "GET", //请求方式
+                async: false,
+                url: {% url "ajaxDailyPriceYumi" %}, //请求的接口地址
+                data: {
+                    yumi_type_id: yumi_type_id, //服务端请求的数据，前者username代表django获取前端的变量名，后者username代表上面定义的变量名
+                },
+                dataType: "JSON", //返回数据格式，前端要求json格式，后端就必须返回json格式的数据
+                jsonp:'callback',
+                success: function (success) { //data为自定义变量，也可以写成success
+
+                    var dom = document.getElementById("egg_daily_price");
+                    var myChart_ajax = echarts.init(dom);
+                    var app = {};
+                    option = null;
+
+                    option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+
+                        title: {
+                            text: '玉米饲料企业进厂价',
+                            subtext: '数据来源:博亚和讯',
+                            left: 'center',
+                            align: 'right'
+                        },
+                        xAxis: {
+
+                            type: 'category',
+                            data: success.date_list
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        dataZoom: [{
+                                type: 'inside',
+                                start: 0,
+                                end: 100
+                                }, {
+                                    start: 0,
+                                    end: 10,
+                                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                                    handleSize: '80%',
+                                    handleStyle: {
+                                        color: '#fff',
+                                        shadowBlur: 3,
+                                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                        shadowOffsetX: 2,
+                                        shadowOffsetY: 2
+                                    }
+                                }],
+                        series: [
+                            {
+                                name:'玉米饲料企业进厂价',
+                                data: success.yumi_data_list,
+                                type: 'line',
+                                smooth: true,
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+
+                    if (option && typeof option === "object") {
+                        myChart_ajax.setOption(option, true);
+                    }
+                },
+                error: function () {
+                    alert("fail!!!");
+                }
+            });
+
+        })
+    } catch (e) {
+        console.log(e)
+    }
+</script>
+</body>
+</html>

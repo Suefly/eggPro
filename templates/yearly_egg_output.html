@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>便签管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/static/lib/layui/formSelects-v4.css"/>
+{#    <script src="/static/lib/layui/formSelects-v4.js" charset="utf-8"></script>#}
+    <script type="text/javascript" src="/static/js/index.js"></script>
+    <script src="/static/js/echarts.min.js" charset="utf-8"></script>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+
+<body  class="iframe-h">
+
+<div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">便签管理</a>
+            <a>
+              <cite>便签列表</cite></a>
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+
+<div class="wrap-container email-wrap clearfix">
+    <div class="layui-row">
+        <div class="email-edge col-lg-2 layui-btn-container">
+            <dl class="email-folder">
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" lay-submit="" lay-filter="sreach"  id="write-email-btn1" value="1">父母代种鸡-育成期存栏</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">父母代种鸡-产蛋期存栏量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">父母代种鸡-总存栏量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">商品代蛋鸡-雏鸡销售量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">商品代蛋鸡-育成期存栏量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">商品代蛋鸡-产蛋期存栏量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">商品代蛋鸡-总存栏量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">鸡蛋产量-总重量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">鸡蛋产量-总数量</button>
+                <button class="layui-btn layui-btn-normal email-write-btn f-r" id="write-email-btn2" type="button" value="2">淘汰鸡数量</button>
+            </dl>
+        </div>
+        <div class="col-lg-10">
+            <div class="layui-fluid">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-body ">
+                                <form class="layui-form layui-col-space5">
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+
+                                            <select xm-select="cityname" xm-select-max="3">
+                                                <option value=""></option>
+                                                <option value="1">全国</option>
+                                                <option value="2">上海</option>
+                                                <option value="3">天津</option>
+                                                <option value="4">重庆</option>
+                                            </select>
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    </div>
+                                </form>
+                            </div>
+                                <div class="layui-card-body layui-table-body" id ='yearly_egg_output' style="height: 450px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                        <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+                    <!--<button class="layui-btn" onclick="xadmin.open('添加用户','./articletypeadd.html',800,600)"><i class="layui-icon"></i>添加</button>-->
+                </div>
+                <div class="layui-card-body layui-table-body layui-table-main">
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
+                            </th>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                便签内容
+                            </th>
+                            <th>
+                                时间
+                            </th>
+
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="id" value="1"   lay-skin="primary">
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                百度
+                            </td>
+
+                            <td >
+                                0
+                            </td>
+                            <td class="td-manage">
+
+                                <a title="删除" href="javascript:;" onclick="link_del(this,'1')"
+                                   style="text-decoration:none">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="id" value="1"   lay-skin="primary">
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                百度
+                            </td>
+
+                            <td >
+                                0
+                            </td>
+                            <td class="td-manage">
+                                <a title="删除" href="javascript:;" onclick="link_del(this,'1')"
+                                   style="text-decoration:none">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="layui-card-body ">
+                    <div class="page">
+                        <div>
+                            <a class="prev" href="">&lt;&lt;</a>
+                            <a class="num" href="">1</a>
+                            <span class="current">2</span>
+                            <a class="num" href="">3</a>
+                            <a class="num" href="">489</a>
+                            <a class="next" href="">&gt;&gt;</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'laypage', 'jquery','layer','laydate'], function() {
+        var form = layui.form,
+            layer = layui.layer,
+            laypage = layui.laypage,
+            $ = layui.jquery;
+            var laydate = layui.laydate;
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+
+        //获取当前iframe的name值
+        var iframeObj = $(window.frameElement).attr('name');
+
+        $('#write-email-btn').on('click',function(){
+            parent.page("写邮件", 'email-write.html', iframeObj, w = "700px", h = "600px");
+        })
+        //列表
+        $('.email-folder').on('click','a',function(){
+            var url=$(this).attr('data-url');
+            $('#iframeEmail').attr('src',url);
+
+        })
+        $('.email-tool-btn .f-l').on('mouseenter','button',function(){
+            var title=$(this).attr('data-title');
+            var id='#'+$(this).attr('id');
+            layer.tips(title, id, {
+                tips: [1, '#444c63'],
+                time: 1000
+            });
+        })
+        //分页
+        /*laypage({
+            cont: 'email-page'
+            ,pages: 10
+            ,skin: '#1E9FFF'
+        });*/
+        form.on('checkbox(emailAllChoose)', function(data) {
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+        form.render();
+        //非手机端，设置高度
+        if(window.innerWidth>=768){
+            $('.email-content').css('height',window.innerHeight-30);
+        }
+        $(window).resize(function(){
+            $('.email-content').css('height',window.innerHeight-30);
+        })
+    });
+</script>
+
+<script type="text/javascript">
+    //全局定义一次, 加载formSelects
+    layui.config({
+        base: '/static/lib/layui/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    //加载模块
+    layui.use(['jquery', 'formSelects-v4'], function () {
+        var formSelects = layui.formSelects;
+    });
+</script>
+
+
+
+
+
+
+<script>
+    layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        var  form = layui.form;
+
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+
+
+    });
+
+    /*用户-添加*/
+    function member_add(title,url,id,w,h){
+
+        xadmin.open(title,url,id,w,h);
+    }
+
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',{icon:3,title:'提示信息'},function(index){
+
+            if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+
+        });
+    }
+
+    /*用户-删除*/
+    function link_del(obj,id){
+        layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+
+
+
+    function delAll (argument) {
+        var ids = [];
+
+        // 获取选中的id
+        $('tbody input').each(function(index, el) {
+            if($(this).prop('checked')){
+                ids.push($(this).val())
+            }
+        });
+
+        layer.confirm('确认要删除吗？'+ids.toString(),{icon:3,title:'提示信息'},function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    var dom = document.getElementById("pig_daily_price");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var base = +new Date(1968, 9, 3);
+    var oneDay = 24 * 3600 * 1000;
+    var date = [];
+    var data = [Math.random() * 300];
+
+    for (var i = 1; i < 20000; i++) {
+        var now = new Date(base += oneDay);
+        date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+        data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+    }
+
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                type: 'line',
+                smooth: true,
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+<script type="text/javascript">
+    var dom = document.getElementById("yearly_egg_output");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var base = +new Date(1968, 9, 3);
+    var oneDay = 24 * 3600 * 1000;
+    var date = [];
+    var data = [Math.random() * 300];
+
+    for (var i = 1; i < 20000; i++) {
+        var now = new Date(base += oneDay);
+        date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+        data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+    }
+
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                type: 'bar',
+                smooth: true,
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+

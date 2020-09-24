@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>便签管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/static/lib/layui/formSelects-v4.css"/>
+{#    <script src="/static/lib/layui/formSelects-v4.js" charset="utf-8"></script>#}
+    <script type="text/javascript" src="/static/js/index.js"></script>
+    <script src="/static/js/echarts.min.js" charset="utf-8"></script>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+
+<body  class="iframe-h">
+
+<div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">便签管理</a>
+            <a>
+              <cite>便签列表</cite></a>
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+
+<div class="wrap-container email-wrap clearfix">
+    <div class="layui-row">
+        <div class="col-lg-12">
+            <div class="layui-fluid">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-body ">
+                                <form class="layui-form layui-col-space5">
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+
+                                            <select xm-select="cityname" xm-select-max="3">
+                                                <option value=""></option>
+                                                <option value="1">全国</option>
+                                                <option value="2">上海</option>
+                                                <option value="3">天津</option>
+                                                <option value="4">重庆</option>
+                                            </select>
+                                    </div>
+                                    <div class="layui-inline layui-show-xs-block">
+                                        <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    </div>
+                                </form>
+                            </div>
+                                <div class="layui-card-body layui-table-body" id ='yuce_egg_chanliang' style="height: 450px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    layui.use(['form', 'laypage', 'jquery','layer','laydate'], function() {
+        var form = layui.form,
+            layer = layui.layer,
+            laypage = layui.laypage,
+            $ = layui.jquery;
+            var laydate = layui.laydate;
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+
+        form.on('checkbox(emailAllChoose)', function(data) {
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+        form.render();
+        //非手机端，设置高度
+        if(window.innerWidth>=768){
+            $('.email-content').css('height',window.innerHeight-30);
+        }
+        $(window).resize(function(){
+            $('.email-content').css('height',window.innerHeight-30);
+        })
+    });
+</script>
+
+<script type="text/javascript">
+    //全局定义一次, 加载formSelects
+    layui.config({
+        base: '/static/lib/layui/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    //加载模块
+    layui.use(['jquery', 'formSelects-v4'], function () {
+        var formSelects = layui.formSelects;
+    });
+</script>
+
+<script>
+    layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        var  form = layui.form;
+
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+
+
+    });
+
+    /*用户-添加*/
+    function member_add(title,url,id,w,h){
+
+        xadmin.open(title,url,id,w,h);
+    }
+
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',{icon:3,title:'提示信息'},function(index){
+
+            if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+
+        });
+    }
+
+    /*用户-删除*/
+    function link_del(obj,id){
+        layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+
+
+
+    function delAll (argument) {
+        var ids = [];
+
+        // 获取选中的id
+        $('tbody input').each(function(index, el) {
+            if($(this).prop('checked')){
+                ids.push($(this).val())
+            }
+        });
+
+        layer.confirm('确认要删除吗？'+ids.toString(),{icon:3,title:'提示信息'},function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    var dom = document.getElementById("yuce_egg_chanliang");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    var date_list = {{ date_list | safe }};
+    var exist_date_list = {{ exist_date_list | safe }};
+
+
+
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        title: {
+            text: '商品代种鸡育成期平均存栏量预测',
+            subtext: '数据来源:博亚和讯',
+            left: 'center',
+            align: 'right'
+        },
+        xAxis: {
+            name:'商品代种鸡育成期平均存栏量预测',
+            type: 'category',
+            data: date_list,
+
+        },
+        yAxis: {
+            type: 'value'
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : true,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
+            }
+        },
+        dataZoom: [{
+            type: 'inside',
+            start: 0,
+            end: 100
+            }, {
+                start: 0,
+                end: 10,
+                handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                handleSize: '80%',
+                handleStyle: {
+                    color: '#fff',
+                    shadowBlur: 3,
+                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2
+                }
+            }],
+        series: [
+            {
+                name:'商品代种鸡育成期平均存栏量预测',
+                data: {{ data_list | safe }},
+                type: 'bar',
+                smooth: true,
+                itemStyle: {
+                        color: function(params){
+                            var c ='';
+                            if(exist_date_list.indexOf(params.name) > -1){
+                                c='#c23531'
+                            }else{
+                                c='#4f6cc2'
+                            }
+                            return c;
+                        }
+                    },
+                markPoint: {
+                    data: [
+                        {
+                            type: 'max',
+                            name: '最大值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        },
+                        {
+                            type: 'min',
+                            name: '最小值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均值',
+                            color: "green",
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                }
+            }
+        ]
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+</body>
+</html>
+
+
+
