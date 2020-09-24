@@ -135,9 +135,17 @@ def welcome(request):
         jicha_list = list(
             map(lambda x, y: x - y, price_dict['qihuo_price_list'], price_dict['xianhuo_price_list']))
 
+    output_type_id_yucheng = 6
+    output_type_id_chandan = 7
+    yucheng_date_list, yucheng_data_list = get_week_cunchulan_output(output_type_id_yucheng)
+    chandan_date_list, chandan_data_list = get_week_cunchulan_output(output_type_id_chandan)
+
+    output_type_id_yucheng_fmd = 2
+    output_type_id_chandan_fmd = 3
+    yucheng_date_list_fmd, yucheng_data_list_fmd = get_week_cunchulan_output(output_type_id_yucheng_fmd)
+    chandan_date_list_fmd, chandan_data_list_fmd = get_week_cunchulan_output(output_type_id_chandan_fmd)
+
     content = {
-
-
         'data_list': data_list,
         'date_list': date_list,
         'exist_date_list': exist_date_list,
@@ -150,7 +158,15 @@ def welcome(request):
         'xianhuo_price_list': price_dict['xianhuo_price_list'],
 
         'chanliang_data_list':chanliang_data_list,
-        'chanliang_exist_data_list':chanliang_exist_data_list
+        'chanliang_exist_data_list':chanliang_exist_data_list,
+
+        'yucheng_date_list': yucheng_date_list,
+        'yucheng_data_list': yucheng_data_list,
+        'chandan_data_list': chandan_data_list,
+
+        'yucheng_date_list_fmd': yucheng_date_list_fmd,
+        'yucheng_data_list_fmd': yucheng_data_list_fmd,
+        'chandan_data_list_fmd': chandan_data_list_fmd
     }
     return render(request,'welcome.html',content)
 
@@ -238,12 +254,10 @@ def ajax_weekly_egg_output(request):
     if 'output_type_id_yucheng' in request.GET.dict():
         output_type_id_yucheng = int(request.GET['output_type_id_yucheng'])
         output_type_id_chandan = int(request.GET['output_type_id_chandan'])
-        print('sujie'*10,output_type_id_chandan)
         yucheng_date_list, yucheng_data_list = get_week_cunchulan_output(output_type_id_yucheng)
         date_list, chandan_data_list = get_week_cunchulan_output(output_type_id_chandan)
 
         content = {
-
             'date_list': date_list,
             'yucheng_data_list': yucheng_data_list,
             'chandan_data_list':chandan_data_list

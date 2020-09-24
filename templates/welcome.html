@@ -698,52 +698,106 @@
     var myChart = echarts.init(dom);
     var app = {};
     option = null;
+
     option = {
         tooltip: {
-            trigger: 'axis',
-            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
+            trigger: 'axis'
         },
         legend: {
-            data: ['育成期存栏', '产蛋期存栏','鸡蛋产量']
+            data: ['育成期存栏', '产蛋期存栏']
         },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
+        title: {
+            text: '商品代蛋鸡存栏量',
+            subtext: '数据来源:博亚和讯',
+            left: 'left',
+            align: 'right'
         },
-        xAxis: [
-            {
-                type: 'category',
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        xAxis: {
+            type: 'category',
+            data: {{ yucheng_date_list | safe }},
+
+        },
+        yAxis: {
+            type: 'value'
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : true,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
             }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
+        },
+        dataZoom: [{
+            type: 'inside',
+            start: 90,
+            end: 100
+            }, {
+                start: 0,
+                end: 10,
+                handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                handleSize: '80%',
+                handleStyle: {
+                    color: '#fff',
+                    shadowBlur: 3,
+                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2
+                }
+            }],
         series: [
             {
-                name: '育成期存栏',
+                name:'育成期存栏',
+                data: {{ yucheng_data_list | safe }},
                 type: 'bar',
-                barWidth: 20,
-                stack: '搜索引擎',
-                data: [620, 732, 701, 734, 1090, 1130, 1120]
+                smooth: true,
+                stack:'商品代',
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均值',
+                            color: "green",
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                }
             },
             {
-                name: '产蛋期存栏',
+                name:'产蛋期存栏',
+                data: {{ chandan_data_list | safe }},
                 type: 'bar',
-                stack: '搜索引擎',
-                data: [120, 132, 101, 134, 290, 230, 220]
-            },
-             {
-            name: '鸡蛋产量',
-            type: 'line',
-            data: [62, 82, 91, 84, 109, 110, 120]
-        }
+                smooth: true,
+                stack:'商品代',
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均值',
+                            color: "green",
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                }
+            }
         ]
     };
 
@@ -758,58 +812,119 @@
     var myChart = echarts.init(dom);
     var app = {};
     option = null;
+
     option = {
         tooltip: {
-            trigger: 'axis',
-            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
+            trigger: 'axis'
         },
         legend: {
-            data: ['育成期存栏', '产蛋期存栏','鸡蛋产量']
+            data: ['育成期存栏', '产蛋期存栏']
         },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
+        title: {
+            text: '父母代种鸡存栏量',
+            subtext: '数据来源:博亚和讯',
+            left: 'left',
+            align: 'right',
         },
-        xAxis: [
-            {
-                type: 'category',
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        xAxis: {
+            type: 'category',
+            data: {{ yucheng_date_list_fmd | safe }},
+
+        },
+        yAxis: {
+            type: 'value'
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {
+                    show : true
+                },
+                dataView : {
+                    show : true,
+                    readOnly : false
+                },
+                magicType : {
+                    show : true,
+                    type : ['line', 'bar']
+                },
+                restore : {
+                    show : true
+                },
+                saveAsImage : {
+                    show : true
+                }
             }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
+        },
+        dataZoom: [{
+            type: 'inside',
+            start: 90,
+            end: 100
+            }, {
+                start: 0,
+                end: 10,
+                handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                handleSize: '80%',
+                handleStyle: {
+                    color: '#fff',
+                    shadowBlur: 3,
+                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2
+                }
+            }],
         series: [
             {
-                name: '育成期存栏',
+                name:"育成期存栏",
+                data: {{ yucheng_data_list_fmd | safe }},
                 type: 'bar',
-                barWidth: 20,
-                stack: '搜索引擎',
-                data: [620, 732, 701, 734, 1090, 1130, 1120]
-            },
-            {
-                name: '产蛋期存栏',
-                type: 'bar',
-                stack: '搜索引擎',
-                data: [120, 132, 101, 134, 290, 230, 220]
+                stack:"父母代种鸡",
+                smooth: true,
+                markPoint: {
+                    data: [
+                        {
+                            type: 'max',
+                            name: '最大值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        },
+                        {
+                            type: 'min',
+                            name: '最小值',
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均值',
+                            color: "green",
+                            itemStyle: {
+                                color: "#0090ff",
+                            },
+                        }
+                    ]
+                }
             },
              {
-            name: '鸡蛋产量',
-            type: 'line',
-            data: [62, 82, 91, 84, 109, 110, 120]
-        }
+                name:"产蛋期存栏",
+                data: {{ chandan_data_list_fmd | safe }},
+                type: 'bar',
+                stack:"父母代种鸡",
+                smooth: true
+            }
         ]
     };
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
+
 </script>
 
 </html>
