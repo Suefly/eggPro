@@ -4,12 +4,52 @@ from futures.views import *
 from basic.models import *
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from geetest import GeetestLib
+from django.contrib.auth.decorators import login_required
 import json
 from django.db.models import Q
 # import copy
 import datetime
 import time
 # Create your views here.
+# 请在官网申请ID使用，示例ID不可使用
+pc_geetest_id = "b46d1900d0a894591916ea94ea91bd2c"
+pc_geetest_key = "36fc3fe98530eea08dfc6ce76e3d24c4"
+
+def acc_login(request):
+    if request.method == "POST":
+        print(request.POST)
+        res = {"status": 0, "msg": ""}
+        username = request.POST.get("username")
+        password = request.POST.get("pwd")
+        # 获取极验 滑动验证码相关的参数
+        gt = GeetestLib(pc_geetest_id, pc_geetest_key)
+        challenge = request.POST.get(gt.FN_CHALLENGE, '')
+        validate = request.POST.get(gt.FN_VALIDATE, '')
+        seccode = request.POST.get(gt.FN_SECCODE, '')
+        status = request.session[gt.GT_STATUS_SESSION_KEY]
+        user_id = request.session["user_id"]
+        if status:
+            result = gt.success_validate(challenge, validate, seccode, user_id)
+        else:
+            result = gt.failback_validate(challenge, validate, seccode)
+        print("####################", result)
+        if result:
+            user = authenticate(username=username, password=password)
+            print('user',user)
+            if user:
+                login(request, user)
+                res["msg"] = "/index/"
+            else:
+                res["status"] =1
+                res["msg"] = "认证失败,请检查用户名及密码是否正确"
+        else:
+            res["status"] = 1
+            res["msg"] = "验证码错误"
+        print("**************", res)
+        return JsonResponse(res)
+    return render(request, 'login.html')
 
 def index(request):
     return render(request,'index.html')
