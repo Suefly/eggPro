@@ -24,6 +24,7 @@ import yumi.views as yumi
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',egg.index,name='index'),
+    path('login/',egg.acc_login,name='login'),
     path('welcome/',egg.welcome,name='welcome'),
     path('dailyPrice/',egg.daily_egg_price,name='dailyPrice'),
     path('ajaxSelectTypeDailyPrice/',egg.ajax_select_daily_price,name='ajaxSelectTypeDailyPrice'),
