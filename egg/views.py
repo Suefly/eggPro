@@ -12,6 +12,7 @@ from django.db.models import Q
 # import copy
 import datetime
 import time
+from login.views import check_login
 # Create your views here.
 # 请在官网申请ID使用，示例ID不可使用
 pc_geetest_id = "b46d1900d0a894591916ea94ea91bd2c"
@@ -51,9 +52,11 @@ def acc_login(request):
         return JsonResponse(res)
     return render(request, 'login.html')
 
+@check_login
 def index(request):
     return render(request,'index.html')
 
+@check_login
 def qihuo_zijin_info(request):
 
     today = '2020-09-09'
