@@ -122,6 +122,7 @@ def qihuo_zijin_info(request):
     }
     return render(request,'welcome1.html',content)
 
+@check_login
 def welcome(request):
 
     #### 价格预测
@@ -213,6 +214,7 @@ def welcome(request):
     }
     return render(request,'welcome.html',content)
 
+@check_login
 def daily_egg_price(request):
     current_day = get_lastday_egg_daily_table()
     egg_dailyprice_res = get_egg_quanguo_dailyprice(1)
